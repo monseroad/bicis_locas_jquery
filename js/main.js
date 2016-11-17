@@ -1,72 +1,47 @@
-function validateForm(){
-	
-	//El campo nombre sólo debe permitir caracteres de la A-Z
-	 //Para el campo nombre la primera letra debe ser mayúscula
-    var nombre = document.getElementById('name').value;
-       if( nombre == null || nombre.length <= 3 || /^\s+$/.test(nombre) || /^[A-Za-z]*$/.test(nombre) == false || nombre.substring(0,1) == nombre.substring(0,1).toUpperCase() == false ) {
-          var campo = document.getElementsByClassName('name-container')[0];
-          var tagSpan = document.createElement('span');
-          var texto = document.createTextNode('Debe ingresar su nombre (primera letra mayúscula)');
-             tagSpan.appendChild(texto);
-             campo.appendChild(tagSpan);
-               return false;    
-    }
 
-    //El campo apellido sólo debe permitir caracteres de la A-Z   
-    //Para el campo apellido la primera letra debe ser mayúscula
-    var apellido = document.getElementById('lastname').value;
-       if( apellido == null || apellido.length <= 3 || /^\s+$/.test(apellido) || /^[A-Za-z]*$/.test(apellido) == false || apellido.substring(0,1) == apellido.substring(0,1).toUpperCase() == false ) { 
-          var campo = document.getElementsByClassName('lastname-container')[0];
-          var tagSpan = document.createElement('span');
-          var texto = document.createTextNode('Debe ingresar su apellido (primera letra mayúscula)');
-             tagSpan.appendChild(texto);
-             campo.appendChild(tagSpan);
-               return false;   
-    }
+function validateForm(){
+  
+  var nombre = $('#name').val();
+  var apellido = $('#lastname').val();
+  var mail = $('#input-email').val();
+  var contrasena = $('#input-password').val();
+  var seleccionar = $('select').val();
+
+//El campo nombre sólo debe permitir caracteres de la A-Z
+//Para el campo nombre la primera letra debe ser mayúscula
+  if (nombre == null || nombre.length === 0 || !(/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/).test(nombre)){
+    $('#name').parent().append("<span>Escriba su nombre (la primera letra mayúscula)</span>");
+  }
+//El campo apellido sólo debe permitir caracteres de la A-Z   
+//Para el campo apellido la primera letra debe ser mayúscula
+  if (apellido == null || apellido.length === 0 || !(/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/).test(apellido)){
+    $('#lastname').parent().append("<span>Escriba su apellido (la primera letra mayúscula)</span>");
+  }
+//Validar que el campo email tenga un formato válido. Ej: name@domain.com
+  if (!(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(mail))){
+    $('#input-email').parent().append("<span>Correo electronico invalido</span>");
+  }
+//El campo password debe tener al menos 6 caracteres  
+  if (contrasena == null || contrasena.length < 6) {
+    $('#input-password').parent().append("<span>La contraseña debe tener al menos 6 caracteres</span>");
+  }
+//El campo password no puede ser igual a "password" ó "123456" ó "098754"
+  if (contrasena === '123456' || contrasena === '0987654' || contrasena === 'pasword'){
+    $('#input-password').parent().append("<span>La contraseña no puede ser igual a 'password' ó '123456' ó '098754'</span>");
+  }
+//El valor seleccionado de bicis, debe ser una de las opciones presentadas
+  if (seleccionar == null || seleccionar === '0') {
+    $('select').parent().append("<span>Debes seleccionar al menos un tipo de bici</span>")
+  } 
     
-    //Validar que el campo email tenga un formato válido. Ej: name@domain.com
-    var correo = document.getElementById('input-email').value;
-       if ( correo == null || correo.length == 0 || /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) != true ) {
-          var campo = document.getElementsByClassName('email-container')[0];
-          var tagSpan = document.createElement('span');
-          var texto = document.createTextNode('Verifique su e-mail');
-            tagSpan.appendChild(texto);
-            campo.appendChild(tagSpan);
-              return false;   
-    } 
-    
-    //El campo password debe tener al menos 6 caracteres                      
-    var password = document.getElementById('input-password').value;
-       if ( password == null || password.length < 6 ) {
-          var tagSpan = document.createElement('span');
-          var segundoSpan = document.getElementById('input-password');
-          var padre = segundoSpan.parentNode;
-             padre.insertBefore(tagSpan, segundoSpan);
-          var texto = document.createTextNode('La contraseña debe tener al menos 6 caracteres');
-            tagSpan.appendChild(texto);
-              return false;
-    } 
-        
-        //El campo password no puede ser igual a "password" ó "123456" ó "098754"
-        else if ( password == '123456' || password == '098754' || password == 'password' ) {
-            var tagSpan = document.createElement('span');
-            var segundoSpan = document.getElementById('input-password');
-            var padre = segundoSpan.parentNode;
-               padre.insertBefore(tagSpan, segundoSpan);
-            var texto = document.createTextNode('La contraseña no puede ser igual a "password" ó "123456" ó "098754');
-               tagSpan.appendChild(texto);
-                 return false;
-        }
-    
-    //El valor seleccionado de bicis, debe ser una de las opciones presentadas
-    var seleccionBici = document.querySelector("select").value;
-       if (seleccionBici == 0) {
-          var tagSpan = document.createElement('span');
-          var segundoSpan = document.querySelector('select');
-          var padre = segundoSpan.parentNode;
-             padre.insertBefore(tagSpan, segundoSpan);
-          var texto = document.createTextNode('Debes seleccionar al menos un tipo de bici');
-             tagSpan.appendChild(texto);
-               return false;
-    }
+  
 }
+
+
+
+
+
+	 
+
+    
+   
